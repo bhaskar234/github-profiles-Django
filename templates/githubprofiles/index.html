@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+
+<link rel="stylesheet" type="text/css" href="/static/css/bootstrap.css" />
+</head>
+<body>
+
+<div class="container">
+  <row class="span8">
+  <ul class="nav nav-pills">
+  <li class="active">
+  <a href="/githubprofiles/showusers">Show users</a>   </li>
+  <li><a href="#">Link</a></li>
+  <li><a href="#">Link</a></li>
+   <li><a href="#">Link</a></li>
+   <li><a href="#">Link</a></li>
+
+
+  </ul>
+  </div>
+  </div>
+
+{% if template %}
+
+
+
+<!-- showusers template -->
+    {% ifequal template "showusers" %}
+    <title>List of Users </title>
+    <h2>List of Users </h2>
+    <table class="table" style="width:450px">
+    <thead><td>Id </td><td>Login</td></thead>
+    {% for user in users_list %}
+        <tr><td>{{user.id}}</td><td><a href="/githubprofiles/userinfo/{{ user.login }}/">{{ user.login }}</a></td></tr>
+    {% endfor %}
+    </table>
+
+   {% endifequal %}
+
+<!-- showusers template end-->
+
+
+<!-- userinfo template -->
+        {% ifequal template "userinfo" %}
+        <title>Userinfo</title>
+        <h2>Userinfo</h2>
+	    <table class="table" style="width:450px">
+	        <tr><td>Login</td><td>{{ userinfo_list.login }}</td></tr>
+	        <tr><td>Type</td><td>{{ userinfo_list.type }}</td></tr>
+	        <tr><td>collaborators</td><td>{{ userinfo_list.collaborators }}</td></tr>
+	        <tr><td><a href="/githubprofiles/repos/{{ userinfo_list.login }}">Public Repositories</a></td><td>{{ userinfo_list.public_repos }}</td></tr>
+	        <tr><td>Private Repositories</td><td>{{ userinfo_list.private_repos }}</td></tr>
+	        <tr><td>Public Gists</td><td>{{ userinfo_list.public_gists }}</td></tr>
+	        <tr><td>Private Gists</td><td>{{ userinfo_list.private_gists }}</td></tr>
+	        <tr><td>Followers</td><td>{{ userinfo_list.followers }}</td></tr>
+	        <tr><td>Html Url</td><td><a href="{{ userinfo_list.html_url }}" target="_blank">{{ userinfo_list.html_url }}</a></td></tr>
+
+
+	    </table>
+	   {% endifequal %}
+<!-- userinfo template end-->
+
+
+<!-- repos template -->
+	   {% ifequal template "repos" %}
+          <title>Repositories</title>
+          <h2>Repositories</h2>
+          <table class="table" style="width:450px">
+           {% for repoinfo in repos_list %}
+              <tr><td>{{ forloop.counter }}</td><td><a href="/githubprofiles/repoinfo/{{ repoinfo.name }}/{{ repoinfo.owner }}">{{ repoinfo.name }}</a></td></tr>
+
+          {% endfor %}
+          </table>
+	   {%  endifequal %}
+<!-- repos template end-->
+
+
+
+<!-- repoinfo template -->
+       {% ifequal template "repoinfo" %}
+          <title>Repository Info</title>
+          <h2>Repository Info</h2>
+          {% for x in repoinfo_list %}
+
+          <table class="table table-striped" style="width:450px">
+
+			<tr><td>Name</td><td>{{x.name}}</td></tr>
+			<tr><td>Description</td><td>{{x.description}}</td></tr>
+			<tr><td>Owner</td><td><a href="/githubprofiles/userinfo/{{x.owner}}">{{x.owner}}</a></td></tr>
+			<tr><td>Watchers</td><td>{{x.watchers}}</td></tr>
+			<tr><td>Private</td><td>{{x.private}}</td></tr>
+			<tr><td>Open Issues</td><td>{{x.open_issues}}</td></tr>
+			<tr><td>Has Wiki</td><td>{{x.has_wiki}}</td></tr>
+			<tr><td>Has Issues</td><td>{{x.has_issues}}</td></tr>
+			<tr><td>Has Downloads </td><td>{{x.has_downloads}}</td></tr>
+			<tr><td>Fork</td><td>{{x.fork}}</td></tr>
+			<tr><td>Forks</td><td>{{x.forks}}</td></tr>
+			<tr><td>Created At</td><td>{{x.created_at}}</td></tr>
+			<tr><td>Pushed At</td><td>{{x.pushed_at}}</td></tr>
+			<tr><td>Url</td><td><a href="{{x.url}}" target="_blank" >{{x.url}}</a></td></tr>
+
+			</table>
+
+
+          {% endfor %}
+         {%  endifequal %}
+<!-- repoinfo template end -->
+
+<!-- msg template -->
+
+        {% ifequal template "msg" %}
+           <h2>{{ msg }} </h2>
+        {% endifequal %}
+
+<!-- msg template end -->
+
+
+{% endif %}
+
+</body>
+</html>
